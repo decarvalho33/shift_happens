@@ -33,15 +33,15 @@ Os materiais desta pasta devem registrar decisões e hipóteses verificáveis. N
 
 | Arquivo | Descrição | Situação |
 | --- | --- | --- |
-| `presentation.*` | Slides ou documento da apresentação final | A adicionar |
-| `demo_video.*` | Vídeo de até 2 minutos, ou link no README principal | A adicionar |
+| Apresentação | Slides da apresentação final | [Google Drive](https://drive.google.com/drive/folders/1G1LjNl9dFcUz0CALvyzcwAHRCD2H2oCk?usp=sharing) |
+| Vídeo de demonstração | Vídeo de até 2 minutos | [Google Drive](https://drive.google.com/drive/folders/1G1LjNl9dFcUz0CALvyzcwAHRCD2H2oCk?usp=sharing) |
 | `architecture.*` | Diagrama de arquitetura (opcional) | A adicionar |
 
 ## Checklist de entrega
 
 - [x] Código-fonte na pasta `src/`
 - [x] `SETUP.md` preenchido com instruções de execução
-- [ ] Apresentação nesta pasta (`docs/`)
-- [ ] Link do vídeo demo adicionado ao README principal
+- [ ] Apresentação nesta pasta (`docs/`); por enquanto no [Google Drive](https://drive.google.com/drive/folders/1G1LjNl9dFcUz0CALvyzcwAHRCD2H2oCk?usp=sharing)
+- [x] Link do vídeo demo adicionado ao README principal
 - [x] `.env.example` atualizado com todas as variáveis necessárias
 

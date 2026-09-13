@@ -21,7 +21,7 @@
 
 | 🎬 Vídeo | 📊 Apresentação | ⚙️ Instalação | 📈 Modelos | 🧭 Decisões |
 | :---: | :---: | :---: | :---: | :---: |
-| _adicionar link_ | [`docs/`](docs/README.md) | [`SETUP.md`](SETUP.md) | [`docs/modelos.md`](docs/modelos.md) | [`docs/DECISOES.md`](docs/DECISOES.md) |
+| [Assistir no Drive](https://drive.google.com/drive/folders/1G1LjNl9dFcUz0CALvyzcwAHRCD2H2oCk?usp=sharing) | [Ver no Drive](https://drive.google.com/drive/folders/1G1LjNl9dFcUz0CALvyzcwAHRCD2H2oCk?usp=sharing) | [`SETUP.md`](SETUP.md) | [`docs/modelos.md`](docs/modelos.md) | [`docs/DECISOES.md`](docs/DECISOES.md) |
 
 ---
 
