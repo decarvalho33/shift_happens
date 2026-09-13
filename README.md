@@ -83,6 +83,7 @@ usability-agent/          agente screen-only de avaliação de UX
   ├─ reports/             relatórios gerados, ignorados pelo Git
   └─ screenshots/         evidências visuais, ignoradas pelo Git
 src/                      gerador Python da camada comportamental
+modelo/                   modelos estatísticos: taxa de risco, condenação e valor de oferta
 data/                     snapshot agregado e saídas locais ignoradas
 docs/                     documentação do modelo e materiais do projeto
 SETUP.md                  instalação, execução e solução de problemas

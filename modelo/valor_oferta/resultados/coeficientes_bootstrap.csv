@@ -1,0 +1,11 @@
+modelo,termo,estimativa_pp,ic95_inf,ic95_sup,fracao_sinal_oposto
+mq_pct_dg,intercepto,29.4037,26.5213,32.1955,0.0000
+mq_pct_dg,contrato,1.8449,0.0514,3.5292,0.0205
+mq_pct_dg,extrato,-0.4801,-1.9666,1.0075,0.2425
+mq_pct_dg,comprovante,0.4020,-1.0148,1.7896,0.2955
+mq_pct_dg,dossie,-0.2515,-1.9083,1.3747,0.3900
+mq_pct_dg,demonstrativo,0.3157,-1.3552,2.0265,0.3550
+mq_pct_dg,laudo,-0.4603,-2.2027,1.3435,0.2985
+mq_pct_dg,golpe,0.3317,-1.6211,2.1522,0.3570
+mq_pct_p,intercepto,31.0780,29.4149,32.7153,0.0000
+mq_pct_p,p_perda,-1.8751,-4.1002,0.4779,0.0555

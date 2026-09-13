@@ -1,0 +1,33 @@
+{
+  "n_processos": 60000,
+  "n_acordos": 280,
+  "valor": {
+    "0": 927.6201,
+    "25": 3265.6035,
+    "50": 4361.9049,
+    "75": 5821.970325,
+    "100": 9075.6042
+  },
+  "valor_medio": 4539.6761292857145,
+  "percentual": {
+    "min": 20.0,
+    "max": 40.00000000000001,
+    "media": 29.78214285714286,
+    "mediana": 28.999999999999996,
+    "desvio": 6.129343815349147
+  },
+  "fracao_em_percentual_inteiro": 1.0,
+  "uniformidade_percentual": {
+    "qui_quadrado": 10.399999999999999,
+    "p_valor": 0.960325561423806,
+    "categorias": 21
+  },
+  "fracao_acordos_abaixo_da_condenacao_esperada": 0.7785714285714286,
+  "acordo_sobre_condenacao_esperada_mediana": 0.5487973690324931,
+  "bootstrap": 1000,
+  "repeticoes_cv": 20,
+  "melhor_por_632mais": "floresta",
+  "modelos_claramente_melhores_que_percentual_medio": [],
+  "modelo_escolhido": "pct_medio",
+  "tempo_s": 181
+}

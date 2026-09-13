@@ -1,0 +1,16 @@
+chave,modelo,rmse,mae,r2,desvio_tweedie_1_5,gini,vies_pct,previsoes_negativas
+dp_mq_causa,Logística × causa × MQO severidade ~ golpe + UF + causa,2832.780056,2281.898062,0.628362,7.330760,0.794169,-0.003890,0
+dp_mq_ufg,Logística × causa × MQO severidade ~ golpe + UF,2833.109658,2282.474937,0.628276,7.331496,0.794158,-0.097298,0
+tres_partes,Logística × [P(total) × razão total + P(parcial) × razão parcial] × causa,2833.383123,2280.507005,0.628204,7.334147,0.794087,-0.105116,0
+dp_mq_docs,Logística × causa × MQO severidade ~ subsídios + golpe + UF,2833.499201,2283.057088,0.628173,7.334123,0.794103,-0.095462,0
+tres_partes_docs,"idem, com subsídios em P(total | perda)",2833.527369,2280.723308,0.628166,7.335324,0.794047,-0.104348,0
+dp_ufsub,Logística × causa × severidade por UF e sub-assunto (motor atual),2834.103260,2282.030452,0.628015,7.339169,0.794020,-0.100520,0
+dp_gama,Logística × causa × Gama severidade ~ golpe + UF,2834.529781,2283.657542,0.627903,7.337486,0.793930,-0.095284,0
+dp_ufsub_w1,"idem, severidade ponderada por causa",2834.993362,2282.093128,0.627781,7.343257,0.793865,-0.010328,0
+dp_gama_docs,Logística × causa × Gama severidade ~ subsídios + golpe + UF,2835.003299,2284.247921,0.627779,7.340343,0.793863,-0.093440,0
+dp_ufsub_w2,"idem, severidade ponderada por causa²",2836.441878,2282.355696,0.627401,7.350032,0.793659,0.089134,0
+hgb_duas_partes,Gradient boosting em duas partes (P(perda) × severidade),2843.236437,2286.010862,0.625614,7.366133,0.793127,0.029634,0
+dp_hgb_sev,Logística × causa × boosting na severidade,2843.236437,2286.010862,0.625614,7.366133,0.793127,0.029634,0
+dp_ufsub_ndoc,"Logística × causa × severidade por UF, sub-assunto e nº subsídios",2858.878518,2294.662024,0.621483,7.463552,0.790006,-0.098274,0
+dp_uf,Logística × causa × severidade por UF,2863.678954,2312.476445,0.620211,7.484517,0.789281,-0.108950,0
+dp_global,Logística × causa × severidade média,3012.671158,2455.029054,0.579663,8.201002,0.765246,-0.078662,0

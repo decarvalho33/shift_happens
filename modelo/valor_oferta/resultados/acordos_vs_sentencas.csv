@@ -1,0 +1,13 @@
+variavel,acordos,sentencas,teste,p_valor
+p_perda,0.691081,0.301189,Welch,0.000000
+condenacao_esperada,7500.893461,3210.085197,Welch,0.000000
+causa,15208.829643,14981.130469,Welch,0.408473
+n_subsidios,3.460714,4.413647,Welch,0.000000
+contrato,0.260714,0.718520,qui-quadrado,0.000000
+extrato,0.503571,0.816376,qui-quadrado,0.000000
+comprovante,0.460714,0.607585,qui-quadrado,0.000001
+dossie,0.710714,0.699715,qui-quadrado,0.737433
+demonstrativo,0.732143,0.770429,qui-quadrado,0.147575
+laudo,0.792857,0.801021,qui-quadrado,0.789966
+golpe,0.803571,0.693285,qui-quadrado,0.000085
+uf (distribuição),,,qui-quadrado 26×2,0.011663

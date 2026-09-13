@@ -1,0 +1,31 @@
+{
+  "descricao": "valor de acordo típico = percentual × valor da causa; faixas pela distribuição preditiva por bootstrap",
+  "alvo": "valor dos acordos homologados na base (não inclui propostas recusadas)",
+  "n_acordos": 280,
+  "reamostragens_bootstrap": 5000,
+  "sorteios_de_residuo_por_reamostragem": 20,
+  "percentual_medio": 0.2978214285714286,
+  "ic95_percentual_medio": [
+    0.29057142857142865,
+    0.305
+  ],
+  "percentual_mediano": 0.29,
+  "ic95_percentual_mediano": [
+    0.28,
+    0.31
+  ],
+  "quantis_preditivos_percentual": {
+    "p2_5": 0.19971428571428568,
+    "p10": 0.216,
+    "p25": 0.24589285714285714,
+    "p50": 0.2924642857142857,
+    "p75": 0.35092857142857137,
+    "p90": 0.3856428571428571,
+    "p97_5": 0.3997857142857143
+  },
+  "cobertura_validacao_cruzada": {
+    "faixa_80": 0.8016071428571427,
+    "faixa_95": 0.9392857142857143
+  },
+  "modelo_escolhido": "pct_medio"
+}

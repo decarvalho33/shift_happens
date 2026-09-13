@@ -1,0 +1,21 @@
+{
+  "n_modelo": 59720,
+  "n_modelos_testados": 64,
+  "particoes": 5,
+  "semente": 7,
+  "pct_zeros": 69.88111185532485,
+  "condenacao_media": 3210.176703821166,
+  "condenacao_desvio": 5514.836180718152,
+  "condenacao_quantis": {
+    "50": 0.0,
+    "75": 6050.130825,
+    "90": 12478.120659999999,
+    "99": 20010.076126999997
+  },
+  "condenacao_media_se_perder": 10658.350628353812,
+  "corr_condenacao_causa": 0.19424245257788778,
+  "corr_condenacao_causa_se_perder": 0.7614546142911187,
+  "melhor_modelo": "ab_sem_dossie_laudo",
+  "avisos": [],
+  "tempo_s": 115
+}

@@ -1,0 +1,81 @@
+{
+  "treinado_em": "2026-09-12T21:11:16",
+  "arquivo_dados": "Hackaton_Enter_Base_Candidatos.xlsx",
+  "n_planilha": 60000,
+  "n_acordos_excluidos": 280,
+  "n_modelo": 59720,
+  "n_perdas": 17987,
+  "taxa_perda": 0.3011888814467515,
+  "n_parametros": 33,
+  "validacao": {
+    "tipo": "k-fold estratificado",
+    "particoes": 5,
+    "semente": 7
+  },
+  "cv_resumo": {
+    "log_loss": {
+      "media": 0.3078457809220117,
+      "desvio_padrao": 0.003071487395388169
+    },
+    "auc": {
+      "media": 0.9226788022009889,
+      "desvio_padrao": 0.0012435459008106487
+    },
+    "brier": {
+      "media": 0.09291521208080417,
+      "desvio_padrao": 0.0010874772159703374
+    },
+    "log_loss_taxa_base": {
+      "media": 0.6118682782115267,
+      "desvio_padrao": 3.8596706465897156e-05
+    }
+  },
+  "cv_fora_da_amostra_agregado": {
+    "log_loss": 0.3078457809220117,
+    "auc": 0.9226267865396617,
+    "brier": 0.09291521208080418
+  },
+  "cv_por_particao": [
+    {
+      "particao": 1,
+      "n_teste": 11944,
+      "log_loss": 0.30463702492603023,
+      "auc": 0.9235601907335426,
+      "brier": 0.0920109385830787,
+      "log_loss_taxa_base": 0.6119105587850803
+    },
+    {
+      "particao": 2,
+      "n_teste": 11944,
+      "log_loss": 0.309540880961881,
+      "auc": 0.9229725403268076,
+      "brier": 0.09339857552461993,
+      "log_loss_taxa_base": 0.6119105587850803
+    },
+    {
+      "particao": 3,
+      "n_teste": 11944,
+      "log_loss": 0.30978068708952256,
+      "auc": 0.9217897493814898,
+      "brier": 0.09403118752081077,
+      "log_loss_taxa_base": 0.611840091162491
+    },
+    {
+      "particao": 4,
+      "n_teste": 11944,
+      "log_loss": 0.31085494403495556,
+      "auc": 0.9210372387116655,
+      "brier": 0.0936146074835052,
+      "log_loss_taxa_base": 0.611840091162491
+    },
+    {
+      "particao": 5,
+      "n_teste": 11944,
+      "log_loss": 0.30441536759766896,
+      "auc": 0.9240342918514387,
+      "brier": 0.09152075129200621,
+      "log_loss_taxa_base": 0.6118400911624909
+    }
+  ],
+  "calibracao_maior_desvio_decil_pp": 0.4987246587176475
+}
