@@ -23,6 +23,8 @@ Os materiais desta pasta devem registrar decisões e hipóteses verificáveis. N
 | Documento | Conteúdo |
 | --- | --- |
 | [Enunciado do desafio](desafio.txt) | Texto oficial recebido pela equipe |
+| [Modelos](modelos.md) | Resumo dos três modelos e resultados principais |
+| [Decisões](DECISOES.md) | Escolhas técnicas, motivos e pendências |
 | [Taxa de risco](../src/modelo/taxa_de_risco/README.md) | Probabilidade de perda, score de defesa e validação |
 | [Valor da condenação](../src/modelo/condenacao/README.md) | Comparação de 64 modelos |
 | [Valor de oferta](../src/modelo/valor_oferta/README.md) | Valor típico de acordo com bootstrap |

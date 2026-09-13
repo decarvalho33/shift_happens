@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  javascript:
+    name: Frontend e backend
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+          cache-dependency-path: |
+            src/frontend/package-lock.json
+            src/backend/package-lock.json
+      - name: Instalar frontend
+        run: npm ci
+        working-directory: src/frontend
+      - name: Instalar backend
+        run: npm ci
+        working-directory: src/backend
+      - name: Frontend · lint
+        run: npm run lint
+        working-directory: src/frontend
+      - name: Frontend · testes
+        run: npm test
+        working-directory: src/frontend
+      - name: Frontend · build
+        run: npm run build
+        working-directory: src/frontend
+      - name: Backend · tipos
+        run: npm run check
+        working-directory: src/backend
+      - name: Backend · testes
+        run: npm test
+        working-directory: src/backend
+
+  python:
+    name: Python
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Gerador sintético · testes
+        run: python -m unittest discover -s src/tests
+      - name: Agente de usabilidade · testes
+        run: python -m unittest discover -s tests
+        working-directory: src/usability-agent
