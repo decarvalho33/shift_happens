@@ -14,7 +14,7 @@ const app = createApp({
 app.listen(config.port, '127.0.0.1', () => {
   console.log(`Backend do copiloto em http://127.0.0.1:${config.port}`);
   console.log(`Modelo OpenAI: ${config.model}`);
-  if (!config.apiKey) console.warn('OPENAI_API_KEY não configurada; edite backend/.env.');
+  if (!config.apiKey) console.warn('OPENAI_API_KEY não configurada; edite src/backend/.env.');
 });
 
 function shutdown() { app.close(() => process.exit(0)); }

@@ -2,53 +2,40 @@
 
 **Hackathon Enter × Unicamp 2026 · Política de acordos com inteligência**
 
-Protótipo de uma mesa de decisão para contencioso bancário. A experiência reúne recomendação, evidências rastreáveis, decisão do advogado, negociação e monitoramento administrativo em um fluxo demonstrativo.
+Protótipo de uma mesa de decisão para contencioso bancário. A experiência reúne recomendação, score de defesa calculado por modelo, evidências rastreáveis, decisão do advogado, negociação e monitoramento administrativo.
 
-## Links rápidos
+## Entrega
 
-- [Desafio oficial](https://www.hackathon.getenter.ai/desafio)
-- [Guia de instalação](SETUP.md)
-- [Roteiro completo do frontend](frontend/README.md)
-- [Agente de testes de usabilidade](usability-agent/README.md)
-
----
+| Item | Onde |
+| --- | --- |
+| Código-fonte | [`src/`](src/README.md) |
+| Instalação e execução | [`SETUP.md`](SETUP.md) |
+| Dados | [`data/`](data/README.md) |
+| Apresentação e documentação | [`docs/`](docs/README.md) |
+| Vídeo de demonstração | _adicionar link_ |
 
 ## O problema
 
-O Banco Unicamp recebe aproximadamente **15 mil processos novos por mês**. Cerca de **5 mil** envolvem consumidores que afirmam não reconhecer a contratação de um empréstimo.
-
-Em cada processo, o advogado externo precisa decidir entre defender o banco judicialmente ou propor um acordo. Essa decisão exige consulta rápida aos autos e subsídios, aplicação consistente da política e registro do resultado para que o banco acompanhe aderência e efetividade.
+O Banco Unicamp recebe aproximadamente **15 mil processos novos por mês**. Cerca de **5 mil** envolvem consumidores que afirmam não reconhecer a contratação de um empréstimo. Em cada processo, o advogado externo precisa decidir entre defender o banco ou propor um acordo, aplicar a política de forma consistente e registrar o resultado. O enunciado completo está em [`docs/desafio.txt`](docs/desafio.txt).
 
 ## A solução
 
-O **Enter Policy** organiza essa jornada em três frentes:
-
-- **Mesa do advogado** — apresenta a recomendação **ACORDO**, **DEFESA** ou **REVISAR**, risco estimado, valor da causa, motivos e ponto de atenção. O advogado consulta evidências com documento e página de origem, segue a recomendação ou registra uma divergência justificada.
-- **Visão administrativa** — acompanha decisões, aderência, negociações e indicadores de efetividade em dashboards construídos sobre uma camada demonstrativa de dados comportamentais.
-- **Agente de usabilidade** — usa Playwright e um modelo multimodal da OpenAI para simular um advogado externo sem treinamento. O agente enxerga apenas a tela, executa seis tarefas e gera relatórios Markdown e JSON.
-
-Uma camada Python complementar gera dados sintéticos e explicáveis de comportamento dos advogados a partir da base disponibilizada para o desafio. O frontend funciona sem backend e usa mocks locais por padrão.
-
----
+- **Mesa do advogado:** recomendação **ACORDO**, **DEFESA** ou **REVISAR**, **score de defesa de 0 a 100** (0 = fechar acordo, 100 = pode defender), valor da causa, motivos e ponto de atenção. O advogado consulta evidências com documento e página de origem, segue a recomendação ou registra uma divergência justificada.
+- **Modelos estatísticos:** treinados nas 60 mil sentenças da planilha. A taxa de risco calcula a probabilidade de perda a partir dos subsídios juntados, do sub-assunto e da UF. Também há modelos do valor da condenação e do valor típico de acordo.
+- **Visão administrativa:** acompanha decisões, aderência, negociações e efetividade sobre uma camada demonstrativa de dados comportamentais.
+- **Agente de usabilidade:** usa Playwright e um modelo multimodal da OpenAI para simular um advogado sem treinamento e gera relatórios.
 
 ## Como executar
 
-### Pré-requisitos
-
-- **Node.js 22.12 ou superior**
-- **npm**
-
-### Frontend
+Com Node.js 22.12 ou superior:
 
 ```bash
-cd frontend
+cd src/frontend
 npm ci
-npm run dev
+npm run dev -- --host 127.0.0.1
 ```
 
-Abra a URL indicada pelo Vite, normalmente `http://127.0.0.1:5173`.
-
-O modo demonstrativo não exige chave, banco de dados ou serviço externo. Consulte o [guia de instalação](SETUP.md) para executar também o gerador de dados e o agente de usabilidade.
+Abra `http://127.0.0.1:5173`, entre como advogado e abra um processo. O modo demonstrativo não exige chave, banco de dados ou backend. Copiloto com OpenAI, modelos, gerador e agente estão no [`SETUP.md`](SETUP.md).
 
 ### Rotas principais
 
@@ -63,96 +50,58 @@ O modo demonstrativo não exige chave, banco de dados ou serviço externo. Consu
 /admin/decisions          registro de decisões
 ```
 
----
-
 ## Estrutura do repositório
 
 ```text
-frontend/                 aplicação React e experiência dos dois perfis
-  ├─ src/pages/           login, fila, processo e dashboards
-  ├─ src/components/      decisões, evidências e estrutura da aplicação
-  ├─ src/mocks/           casos e indicadores demonstrativos
-  ├─ src/services/        contrato de API e persistência local
-  └─ docs/                contrato para integração futura
-backend/                  API do copiloto integrada à OpenAI
-  ├─ src/                 servidor, contexto e cliente da Responses API
-  └─ test/                testes HTTP e de contrato
-usability-agent/          agente screen-only de avaliação de UX
-  ├─ prompts/             papel e critérios do advogado simulado
-  ├─ tests/               contratos, validações e testes do runner
-  ├─ reports/             relatórios gerados, ignorados pelo Git
-  └─ screenshots/         evidências visuais, ignoradas pelo Git
-src/                      gerador Python da camada comportamental
-modelo/                   modelos estatísticos: taxa de risco, condenação e valor de oferta
-data/                     snapshot agregado e saídas locais ignoradas
-docs/                     documentação do modelo e materiais do projeto
+src/
+  frontend/               aplicação React: páginas, componentes, mocks, score (src/lib/riskModel.ts)
+  backend/                API do copiloto integrada à OpenAI
+  modelo/                 taxa de risco, valor da condenação e valor de oferta
+  usability-agent/        agente screen-only de avaliação de UX
+  synthetic_adherence.py  gerador Python da camada comportamental
+  tests/                  testes do gerador
+data/                     planilha do desafio, snapshot agregado e processos de exemplo locais
+docs/                     enunciado, documentação e materiais da apresentação
 SETUP.md                  instalação, execução e solução de problemas
 ```
 
 ## Stack
 
-**Frontend** · React 19 · TypeScript 6 · Vite 8 · React Router · Radix UI · Lucide
-
-**Backend do chatbot** · Node.js · TypeScript · OpenAI Responses API · Structured Outputs
-
-**Dados demonstrativos** · Python 3.10+ · biblioteca padrão · XLSX · JSON · CSV
-
-**Avaliação de UX** · Python · Playwright · OpenAI Responses API · visão · Structured Outputs
-
-**Qualidade** · Vitest · Testing Library · Oxlint · TypeScript
-
----
+- **Frontend:** React 19 · TypeScript 6 · Vite 8 · React Router · Radix UI · Lucide
+- **Backend do copiloto:** Node.js · TypeScript · OpenAI Responses API · Structured Outputs
+- **Modelos:** Python 3.10+ · pandas · NumPy · scikit-learn
+- **Avaliação de UX:** Python · Playwright · OpenAI Responses API
+- **Qualidade:** Vitest · Testing Library · Oxlint · TypeScript
 
 ## Testes
 
-### Backend do chatbot
-
 ```bash
-cd backend
-npm run check
-npm test
+cd src/frontend && npm run lint && npm test && npm run build
+cd src/backend && npm run check && npm test
+python -m unittest discover -s src/tests
+cd src/usability-agent && python -m unittest discover -s tests -v
 ```
-
-### Frontend
-
-```bash
-cd frontend
-npm run lint
-npm run build
-npm test
-```
-
-### Agente de usabilidade
-
-```bash
-cd usability-agent
-python -m unittest discover -s tests -v
-python run_test.py --dry-run
-```
-
-O dry-run valida os seis contratos de tarefa, a normalização das notas, o isolamento dos contextos e o fluxo obrigatório de negociação sem consumir a API da OpenAI.
-
----
-
-## Documentação adicional
-
-- [`frontend/README.md`](frontend/README.md) — roteiro da demonstração e comportamento dos mocks.
-- [`backend/README.md`](backend/README.md) — configuração da OpenAI e execução do chatbot.
-- [`frontend/docs/frontend-api.md`](frontend/docs/frontend-api.md) — contrato de integração futura.
-- [`usability-agent/README.md`](usability-agent/README.md) — configuração, execução e formato dos relatórios de UX.
-- [`docs/behavioral_adherence_model.md`](docs/behavioral_adherence_model.md) — geração da camada sintética de aderência.
-- [`SETUP.md`](SETUP.md) — instalação detalhada e solução de problemas.
 
 ## Requisitos do desafio no protótipo
 
-| # | Requisito | Implementação demonstrativa |
+| # | Requisito | Implementação |
 | --- | --- | --- |
-| 1 | Regra de decisão | Recomendações explicáveis nos mocks e no gerador comportamental |
-| 2 | Sugestão de valor | Faixa de acordo exibida nos casos recomendados para acordo |
-| 3 | Acesso à recomendação | Workspace do advogado com risco, motivos e evidências rastreáveis |
+| 1 | Regra de decisão | Score de defesa calculado pelo modelo de taxa de risco; recomendações explicáveis nos casos demonstrativos |
+| 2 | Sugestão de valor | Faixa de acordo nos casos recomendados para acordo; modelo de valor típico de acordo em `src/modelo/valor_oferta` |
+| 3 | Acesso à recomendação | Página do processo com score, risco, motivos e evidências rastreáveis |
 | 4 | Monitoramento de aderência | Dashboard administrativo de aderência e divergências |
 | 5 | Monitoramento de efetividade | Dashboard administrativo de negociação, resultado e economia simulada |
 
+## Documentação adicional
+
+- [`src/frontend/README.md`](src/frontend/README.md): roteiro da demonstração e comportamento dos mocks
+- [`src/backend/README.md`](src/backend/README.md): configuração da OpenAI e execução do copiloto
+- [`src/modelo/taxa_de_risco/README.md`](src/modelo/taxa_de_risco/README.md): probabilidade de perda e score de defesa
+- [`src/modelo/condenacao/README.md`](src/modelo/condenacao/README.md): valor da condenação
+- [`src/modelo/valor_oferta/README.md`](src/modelo/valor_oferta/README.md): valor de oferta
+- [`src/usability-agent/README.md`](src/usability-agent/README.md): agente de usabilidade
+- [`docs/behavioral_adherence_model.md`](docs/behavioral_adherence_model.md): camada sintética de aderência
+
 ## Escopo atual
 
-Este repositório entrega um **protótipo demonstrativo** com um backend local opcional para o chatbot da OpenAI. Não há autenticação de produção, banco de dados, leitura real de documentos ou execução online de uma política de decisão. Casos, nomes, documentos e valores da interface são fictícios; decisões feitas durante a demonstração ficam no navegador.
+Protótipo demonstrativo, sem autenticação de produção, banco de dados nem leitura real de documentos. O score de defesa é calculado no navegador pelo modelo de taxa de risco a partir dos documentos de cada caso. Recomendação, faixa de acordo e indicadores administrativos continuam demonstrativos. Casos, nomes e valores da interface são fictícios, e as decisões feitas durante a demonstração ficam no navegador.

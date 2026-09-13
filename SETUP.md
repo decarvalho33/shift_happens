@@ -1,177 +1,128 @@
-# Configuração e execução
-
-Este guia cobre os três componentes executáveis do repositório: o frontend demonstrativo, o gerador de aderência sintética e o agente de teste de usabilidade.
+# Setup e Execução
 
 ## Pré-requisitos
 
 | Ferramenta | Versão | Uso |
 | --- | --- | --- |
-| Node.js | `>= 22.12.0` | Frontend React/Vite |
-| npm | incluído com o Node.js | Dependências e scripts do frontend |
-| Python | `>= 3.10` | Gerador sintético e agente de usabilidade |
+| Node.js | `>= 22.12.0` (ver `.nvmrc`) | Frontend e backend |
+| npm | incluído no Node.js | Dependências JavaScript |
+| Python | `>= 3.10` | Modelos, gerador sintético e agente de usabilidade |
 
-O gerador em `src/synthetic_adherence.py` usa somente a biblioteca padrão do Python. O agente possui dependências próprias em `usability-agent/requirements.txt`.
+Dependências Python: `src/modelo/requirements.txt` para os modelos e `src/usability-agent/requirements.txt` para o agente. O gerador sintético usa só a biblioteca padrão.
 
-## 1. Frontend demonstrativo
+## Variáveis de Ambiente
+
+O site funciona sem nenhuma variável. Cada componente lê o próprio arquivo:
+
+| Variável | Arquivo | Componente | Obrigatória |
+| --- | --- | --- | --- |
+| `VITE_API_BASE_URL` | `src/frontend/.env.local` | Frontend | Não; vazia usa os mocks locais |
+| `VITE_COPILOT_API_URL` | `src/frontend/.env.local` | Frontend | Não; vazia usa o copiloto determinístico |
+| `COPILOT_PROXY_TARGET` | `src/frontend/.env.local` | Proxy do Vite | Não |
+| `OPENAI_API_KEY` | `src/backend/.env` | Backend do copiloto | Sim, para chamar a OpenAI |
+| `OPENAI_MODEL`, `PORT`, `OPENAI_TIMEOUT_MS`, `COPILOT_ALLOWED_ORIGINS` | `src/backend/.env` | Backend do copiloto | Não |
+| `OPENAI_API_KEY`, `OPENAI_MODEL` | ambiente do processo (ver `.env.example`) | Agente de usabilidade | Sim, exceto no dry-run |
+
+> **Nunca commite arquivos `.env` com credenciais reais.** Não use `VITE_OPENAI_API_KEY`: toda variável `VITE_*` é entregue ao navegador.
+
+## Instalação
 
 Na raiz do repositório:
 
 ```bash
-cd frontend
-npm ci
+cd src/frontend && npm ci && cd ../..
+```
+
+Opcionais:
+
+```bash
+cd src/backend && npm ci && cd ../..                                   # copiloto com OpenAI
+python -m pip install -r src/modelo/requirements.txt                   # retreinar os modelos
+cd src/usability-agent && python -m venv .venv && source .venv/bin/activate \
+  && python -m pip install -r requirements.txt && python -m playwright install chromium && cd ../..
+```
+
+No Windows, ative o ambiente do agente com `.\.venv\Scripts\Activate.ps1`.
+
+## Execução
+
+### 1. Site
+
+```bash
+cd src/frontend
 npm run dev -- --host 127.0.0.1
 ```
 
-Acesse `http://127.0.0.1:5173`.
+Acesse `http://127.0.0.1:5173`, clique em **Entrar como Advogado** e abra um processo. O score de defesa aparece no card de recomendação.
 
-Por padrão, a interface funciona inteiramente com mocks locais. Não é necessário configurar API, banco de dados ou credenciais para navegar pela demonstração.
-
-### API opcional
-
-Somente para integrar uma API externa, copie o exemplo para `frontend/.env.local` e informe a URL base:
+### 2. Copiloto com OpenAI (opcional)
 
 ```bash
-cd frontend
-cp .env.example .env.local
-```
-
-No PowerShell, use:
-
-```powershell
-Copy-Item .env.example .env.local
-```
-
-```env
-VITE_API_BASE_URL=http://127.0.0.1:8000
-```
-
-Deixe `VITE_API_BASE_URL` vazio para continuar usando os mocks. Reinicie o servidor Vite após alterar o arquivo. O frontend não lê essa variável de um `.env` na raiz.
-
-### Verificações do frontend
-
-```bash
-cd frontend
-npm run lint
-npm test
-npm run build
-```
-
-## 2. Gerador de aderência sintética
-
-O gerador lê `Hackaton_Enter_Base_Candidatos.xlsx` e cria uma camada operacional fictícia e reproduzível para a demonstração.
-
-```bash
-python src/synthetic_adherence.py
-```
-
-Saídas padrão:
-
-- `data/synthetic_adherence.csv`: base detalhada gerada localmente e ignorada pelo Git;
-- `data/synthetic_adherence_summary.json`: resumo demonstrativo versionado.
-
-Opções úteis:
-
-```bash
-python src/synthetic_adherence.py --help
-python src/synthetic_adherence.py --limit 500 --seed 7 --output-csv data/local/sample.csv --output-json data/local/sample.json
-```
-
-O diretório `data/local/` é ignorado pelo Git e serve para execuções exploratórias. O comando aceita caminhos alternativos por `--xlsx`, `--output-csv` e `--output-json`. Consulte [data/README.md](data/README.md) antes de atualizar o snapshot versionado.
-
-`src/adherence_dashboard.py` é um legado desativado e encerra imediatamente com uma orientação para usar o frontend React. Ele não deve ser usado para iniciar a aplicação.
-
-## 3. Backend OpenAI do chatbot
-
-O chatbot pode usar a OpenAI por meio do backend local. Copie o ambiente e preencha sua chave:
-
-```powershell
-Copy-Item backend/.env.example backend/.env
-notepad backend/.env
-```
-
-Instale e inicie o servidor:
-
-```powershell
-cd backend
-npm install
+cp src/backend/.env.example src/backend/.env        # preencha OPENAI_API_KEY
+cp src/frontend/.env.example src/frontend/.env.local
+cd src/backend
 npm run dev
 ```
 
-Mantenha-o ativo em `http://127.0.0.1:8787`. Em outro terminal, inicie o frontend normalmente. `frontend/.env.local` define `VITE_COPILOT_API_URL=/api/copilot`, e o proxy do Vite encaminha as chamadas ao backend.
+O backend fica em `http://127.0.0.1:8787`. Em outro terminal, inicie o site normalmente: o proxy do Vite encaminha `/api/copilot` ao backend.
 
-Não use `VITE_OPENAI_API_KEY`: toda variável `VITE_*` é entregue ao navegador. Consulte [backend/README.md](backend/README.md) para as rotas e verificações.
-
-## 4. Agente de teste de usabilidade
-
-Mantenha o frontend ativo em `http://127.0.0.1:5173`. Em outro terminal:
+### 3. Modelos (opcional)
 
 ```bash
-cd usability-agent
-python -m venv .venv
+python src/modelo/taxa_de_risco/treinar.py     # ~25 s · probabilidade de perda e score de defesa
+python src/modelo/condenacao/analise.py        # ~2 min · valor da condenação
+python src/modelo/valor_oferta/analise.py      # ~3 min · valor de oferta
 ```
 
-Ative o ambiente virtual:
+O site usa os coeficientes de `src/frontend/src/lib/riskModel.ts`. Ao retreinar, copie os números de `src/modelo/taxa_de_risco/resultados/modelo.json`.
 
-```powershell
-.\.venv\Scripts\Activate.ps1
-```
-
-Em macOS ou Linux:
+### 4. Gerador sintético de aderência (opcional)
 
 ```bash
+python src/synthetic_adherence.py
+python src/synthetic_adherence.py --limit 500 --seed 7 --output-csv data/local/sample.csv --output-json data/local/sample.json
+```
+
+Gera `data/synthetic_adherence.csv` (local) e atualiza `data/synthetic_adherence_summary.json`. Metodologia em [`docs/behavioral_adherence_model.md`](docs/behavioral_adherence_model.md).
+
+### 5. Agente de usabilidade (opcional)
+
+Com o site ativo, em outro terminal:
+
+```bash
+cd src/usability-agent
 source .venv/bin/activate
-```
-
-Instale as dependências e o Chromium:
-
-```bash
-python -m pip install -r requirements.txt
-python -m playwright install chromium
-```
-
-O agente lê `OPENAI_API_KEY` e `OPENAI_MODEL` diretamente das variáveis do processo. Ele **não carrega arquivos `.env` automaticamente**.
-
-PowerShell:
-
-```powershell
-$env:OPENAI_API_KEY = "sua-chave"
-$env:OPENAI_MODEL = "gpt-4.1-mini"
-python run_test.py
-```
-
-Bash:
-
-```bash
 export OPENAI_API_KEY="sua-chave"
-export OPENAI_MODEL="gpt-4.1-mini"
-python run_test.py
+python run_test.py              # ou python run_test.py --dry-run, sem chamar a OpenAI
 ```
 
-`OPENAI_MODEL` é opcional. Para validar a infraestrutura sem chamar a OpenAI:
+### Verificações
 
 ```bash
-python run_test.py --dry-run
-python -m unittest discover -s tests -v
+cd src/frontend && npm run lint && npm test && npm run build && cd ../..
+cd src/backend && npm run check && npm test && cd ../..
+python -m unittest discover -s src/tests
+cd src/usability-agent && python -m unittest discover -s tests -v && cd ../..
 ```
 
-Consulte [usability-agent/README.md](usability-agent/README.md) para os contratos das tarefas, métricas e relatórios gerados.
+## Dados
+
+A planilha do desafio fica em `data/Hackaton_Enter_Base_Candidatos.xlsx`. Os 2 processos de exemplo ficam em `data/processos_exemplo/` (local, ignorado pelo Git), e o site usa as próprias cópias dos PDFs em `src/frontend/public/demo-cases/`. Consulte [`data/README.md`](./data/README.md).
+
+## Estrutura do Projeto
+
+```
+├── src/          # código-fonte: frontend, backend, modelos, agente e gerador
+├── data/         # planilha do desafio, snapshot agregado e processos de exemplo
+├── docs/         # enunciado, documentação e apresentação
+├── .env.example  # variáveis de ambiente necessárias
+├── SETUP.md      # este arquivo
+└── README.md     # descrição da solução
+```
 
 ## Solução de problemas
 
 - **Vite informa versão incompatível:** confirme `node --version`; a versão esperada está em `.nvmrc`.
-- **A porta 5173 está ocupada:** execute o Vite em outra porta e passe a mesma URL ao agente com `--base-url`.
-- **Chromium não encontrado:** rode novamente `python -m playwright install chromium` no ambiente virtual do agente.
-- **A chave não foi encontrada:** defina `OPENAI_API_KEY` no mesmo terminal que executará `run_test.py`.
-
-## Variáveis de ambiente
-
-| Variável | Componente | Obrigatória |
-| --- | --- | --- |
-| `VITE_API_BASE_URL` | Frontend | Não; vazia usa mocks locais |
-| `VITE_COPILOT_API_URL` | Frontend | Não; vazia usa o copiloto determinístico |
-| `OPENAI_API_KEY` | Backend do chatbot | Sim, para chamar a OpenAI |
-| `OPENAI_MODEL` | Backend do chatbot | Não; padrão em `backend/.env.example` |
-| `OPENAI_API_KEY` | Agente de usabilidade | Sim, exceto no dry-run |
-| `OPENAI_MODEL` | Agente de usabilidade | Não |
-
-Nunca versione credenciais, `.env.local`, relatórios do agente ou dados processuais reais.
+- **Porta 5173 ocupada:** rode o Vite em outra porta e passe a mesma URL ao agente com `--base-url`.
+- **Chromium não encontrado:** rode `python -m playwright install chromium` no ambiente do agente.
+- **Chave não encontrada pelo agente:** defina `OPENAI_API_KEY` no mesmo terminal que executa `run_test.py`.

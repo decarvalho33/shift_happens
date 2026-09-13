@@ -25,7 +25,7 @@ from sklearn.metrics import roc_auc_score
 from sklearn.model_selection import StratifiedKFold
 
 PASTA = Path(__file__).resolve().parent
-DADOS_PADRAO = PASTA.parents[1] / "Hackaton_Enter_Base_Candidatos.xlsx"
+DADOS_PADRAO = PASTA.parents[2] / "data" / "Hackaton_Enter_Base_Candidatos.xlsx"
 
 # coluna da aba "Subsídios disponibilizados" -> nome da variável no modelo
 SUBSIDIOS = {

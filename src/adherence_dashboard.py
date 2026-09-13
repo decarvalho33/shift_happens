@@ -23,7 +23,7 @@ from synthetic_adherence import (
 )
 
 raise SystemExit(
-    "The standalone dashboard was removed. Run the React frontend from `frontend/` "
+    "The standalone dashboard was removed. Run the React frontend from `src/frontend/` "
     "with `npm install` and `npm run dev`."
 )
 

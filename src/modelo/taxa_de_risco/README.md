@@ -13,7 +13,7 @@ score de defesa      = 100 × (1 − P(perda))   # 0 = fechar acordo, 100 = pode
 
 ```bash
 pip install -r ../requirements.txt
-python treinar.py         # ~25 s · lê ../../Hackaton_Enter_Base_Candidatos.xlsx e grava resultados/
+python treinar.py         # ~25 s · lê ../../../data/Hackaton_Enter_Base_Candidatos.xlsx e grava resultados/
 python taxa_de_risco.py   # exemplo de previsão
 ```
 

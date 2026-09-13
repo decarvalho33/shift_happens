@@ -1,43 +1,34 @@
-# Dados demonstrativos
+# Dados
 
-Esta pasta guarda somente artefatos fictícios ou agregados adequados à demonstração pública.
+Arquivos de dados do desafio e artefatos demonstrativos da solução.
 
-## Artefatos
+## Conteúdo
 
-| Arquivo | Versionamento | Descrição |
+| Caminho | Versionamento | Descrição |
 | --- | --- | --- |
-| [synthetic_adherence_summary.json](synthetic_adherence_summary.json) | Versionado | Snapshot demonstrativo e agregado da última geração completa aprovada |
+| `Hackaton_Enter_Base_Candidatos.xlsx` | Versionado | Planilha do desafio: 60.000 sentenças (aba “Resultados dos processos”) e subsídios fornecidos por processo (aba “Subsídios disponibilizados”) |
+| [synthetic_adherence_summary.json](synthetic_adherence_summary.json) | Versionado | Snapshot agregado da camada sintética de aderência |
+| `processos_exemplo/processo_01/`, `processo_02/` | Ignorado | Os 2 processos de exemplo do desafio, com `autos/` e `subsidios/` |
 | `synthetic_adherence.csv` | Ignorado | Saída detalhada gerada localmente pelo simulador |
 | `local/` | Ignorado | Execuções exploratórias e amostras descartáveis |
 
-O JSON versionado permite inspecionar os indicadores da demonstração sem regenerar 60 mil registros. Ele não representa telemetria de produção, decisões reais nem uma medição atualizada automaticamente.
+Os PDFs dos 2 processos de exemplo que o site exibe ficam em `src/frontend/public/demo-cases/`, para que a demonstração funcione sem esta pasta.
 
-## Regeneração
+## Quem usa a planilha
 
-Na raiz do repositório:
+| Componente | Comando, a partir da raiz |
+| --- | --- |
+| Taxa de risco | `python src/modelo/taxa_de_risco/treinar.py` |
+| Valor da condenação | `python src/modelo/condenacao/analise.py` |
+| Valor de oferta | `python src/modelo/valor_oferta/analise.py` |
+| Aderência sintética | `python src/synthetic_adherence.py` |
+
+Para uma execução rápida do gerador sem substituir o snapshot oficial:
 
 ```bash
-python src/synthetic_adherence.py
+python src/synthetic_adherence.py --limit 500 --output-csv data/local/sample.csv --output-json data/local/sample.json
 ```
-
-O comando lê `Hackaton_Enter_Base_Candidatos.xlsx`, grava o CSV local e atualiza o snapshot JSON. Para uma execução rápida sem substituir o snapshot oficial, use caminhos alternativos:
-
-```bash
-python src/synthetic_adherence.py \
-  --limit 500 \
-  --output-csv data/local/sample.csv \
-  --output-json data/local/sample.json
-```
-
-O gerador usa somente a biblioteca padrão do Python 3.10+ e uma seed padrão para reprodutibilidade. A metodologia está descrita em [docs/behavioral_adherence_model.md](../docs/behavioral_adherence_model.md).
 
 ## Segurança e privacidade
 
-Não versione:
-
-- dados processuais reais ou identificáveis;
-- documentos, subsídios ou anexos jurídicos;
-- exports detalhados gerados para análise local;
-- credenciais ou tokens.
-
-Os diretórios `data/subsidios/` e `data/processos_exemplo/`, assim como arquivos CSV em `data/`, permanecem bloqueados pelo `.gitignore`.
+Não versione dados processuais reais ou identificáveis, documentos jurídicos reais, exports detalhados nem credenciais. `data/*.csv`, `data/subsidios/`, `data/processos_exemplo/` e `data/local/` são bloqueados pelo `.gitignore`.

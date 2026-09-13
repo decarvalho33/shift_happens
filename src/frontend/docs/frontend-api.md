@@ -27,7 +27,7 @@ Para integrar um serviço real, configure, por exemplo, `VITE_API_BASE_URL=/api`
 
 ## Copiloto da Política
 
-O protótipo inclui uma implementação local em `backend/`. Ela usa a OpenAI Responses API, carrega as fixtures demonstrativas no servidor e mantém cálculos, fontes e proveniência sob controle da aplicação. Configure `OPENAI_API_KEY` em `backend/.env`; a chave não é enviada ao navegador.
+O protótipo inclui uma implementação local em `src/backend/`. Ela usa a OpenAI Responses API, carrega as fixtures demonstrativas no servidor e mantém cálculos, fontes e proveniência sob controle da aplicação. Configure `OPENAI_API_KEY` em `src/backend/.env`; a chave não é enviada ao navegador.
 
 `src/services/policyCopilot.ts` expõe a fronteira assíncrona do copiloto. Sem `VITE_COPILOT_API_URL`, `createPolicyCopilotProvider()` usa o provider determinístico local. Para integrar um backend, configure a base do serviço, por exemplo:
 

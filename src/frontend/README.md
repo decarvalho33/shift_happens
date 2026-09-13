@@ -11,7 +11,7 @@ Use **Node.js 22.12 ou superior** e npm. O ambiente de desenvolvimento utiliza N
 Partindo da raiz do repositório:
 
 ```sh
-cd frontend
+cd src/frontend
 npm install
 npm run dev
 ```
@@ -58,7 +58,7 @@ Os indicadores agregados e gráficos administrativos representam um cenário sin
 
 Todas as chamadas estão em [`src/services/api.ts`](src/services/api.ts), com contratos em [`src/types/index.ts`](src/types/index.ts). Os componentes não fazem `fetch` diretamente. Por padrão, o serviço retorna cópias dos mocks comportamentais em [`src/mocks/behavioralFixtures.ts`](src/mocks/behavioralFixtures.ts), com pequena latência simulada.
 
-Para direcionar o frontend a uma API, crie `frontend/.env.local` a partir da raiz do repositório:
+Para direcionar o frontend a uma API, crie `src/frontend/.env.local` a partir da raiz do repositório:
 
 ```dotenv
 VITE_API_BASE_URL=/api
@@ -66,7 +66,7 @@ VITE_API_BASE_URL=/api
 
 Reinicie o Vite depois de alterar o ambiente. O valor pode ser o prefixo relativo de um serviço disponibilizado na mesma origem ou a URL-base de uma API. Ao definir essa variável, o serviço passa a usar requisições GET/POST centralizadas; falhas da API não são substituídas silenciosamente por mocks. O backend incluído em `backend/` atende somente ao chatbot, não aos endpoints de casos e dashboard de `VITE_API_BASE_URL`.
 
-Para ativar o chatbot com a OpenAI, mantenha `VITE_COPILOT_API_URL=/api/copilot`, configure `OPENAI_API_KEY` em `backend/.env` e inicie o backend na porta 8787. O proxy do Vite encaminha `/api` durante o desenvolvimento. Consulte o [backend](../backend/README.md) e o [contrato de integração](docs/frontend-api.md). Autenticação, autorização, auditoria durável e processamento real de documentos continuam fora do protótipo.
+Para ativar o chatbot com a OpenAI, mantenha `VITE_COPILOT_API_URL=/api/copilot`, configure `OPENAI_API_KEY` em `src/backend/.env` e inicie o backend na porta 8787. O proxy do Vite encaminha `/api` durante o desenvolvimento. Consulte o [backend](../backend/README.md) e o [contrato de integração](docs/frontend-api.md). Autenticação, autorização, auditoria durável e processamento real de documentos continuam fora do protótipo.
 
 ## Organização
 

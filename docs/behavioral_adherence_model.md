@@ -142,17 +142,17 @@ python src/synthetic_adherence.py --limit 500 --seed 7
 
 ## Frontend integration
 
-The recommended interface is now the React frontend in `frontend/`.
+The recommended interface is now the React frontend in `src/frontend/`.
 
 Run:
 
 ```bash
-cd frontend
+cd src/frontend
 npm install
 npm run dev
 ```
 
-The behavioral mock layer lives in `frontend/src/mocks/behavioralFixtures.ts` and preserves the existing lawyer/admin layout while exposing:
+The behavioral mock layer lives in `src/frontend/src/mocks/behavioralFixtures.ts` and preserves the existing lawyer/admin layout while exposing:
 
 - confidence score and confidence band
 - subsidy count and documentary completeness

@@ -64,7 +64,7 @@ export function createOpenAIAnswerGenerator(options: {
       throw new HttpError(
         503,
         'OPENAI_NOT_CONFIGURED',
-        'O backend está ativo, mas OPENAI_API_KEY ainda não foi configurada em backend/.env.',
+        'O backend está ativo, mas OPENAI_API_KEY ainda não foi configurada em src/backend/.env.',
       );
     }
 

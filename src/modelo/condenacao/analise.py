@@ -28,7 +28,7 @@ from sklearn.metrics import mean_tweedie_deviance, roc_auc_score
 from sklearn.model_selection import StratifiedKFold
 
 PASTA = Path(__file__).resolve().parent
-DADOS = PASTA.parents[1] / "Hackaton_Enter_Base_Candidatos.xlsx"
+DADOS = PASTA.parents[2] / "data" / "Hackaton_Enter_Base_Candidatos.xlsx"
 SAIDA = PASTA / "resultados"
 SUBSIDIOS = {"Contrato": "contrato", "Extrato": "extrato", "Comprovante de crédito": "comprovante",
              "Dossiê": "dossie", "Demonstrativo de evolução da dívida": "demonstrativo", "Laudo referenciado": "laudo"}

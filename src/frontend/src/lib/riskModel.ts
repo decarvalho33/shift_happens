@@ -2,11 +2,11 @@ import type { CaseDetail, CaseDocument, SubSubject, SubsidyKey } from '../types'
 
 /**
  * Taxa de risco: regressão logística treinada nas 59,720 sentenças da planilha
- * Hackaton_Enter_Base_Candidatos.xlsx (modelo/taxa_de_risco/treinar.py, treinado em 2026-09-12T21:11:16).
+ * Hackaton_Enter_Base_Candidatos.xlsx (src/modelo/taxa_de_risco/treinar.py, treinado em 2026-09-12T21:11:16).
  *
  * P(perda) = 1 / (1 + e^(−soma)), com soma = intercepto + pesos dos subsídios juntados
  * + peso do golpe + efeito da UF. Ao retreinar, copie os números de
- * modelo/taxa_de_risco/resultados/modelo.json.
+ * src/modelo/taxa_de_risco/resultados/modelo.json.
  */
 export const RISK_MODEL = {
   version: 'taxa-de-risco-logistica-2026-09-12',

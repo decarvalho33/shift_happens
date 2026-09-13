@@ -14,7 +14,7 @@ import xml.etree.ElementTree as ET
 
 
 ROOT_DIR = Path(__file__).resolve().parents[1]
-DEFAULT_XLSX = ROOT_DIR / "Hackaton_Enter_Base_Candidatos.xlsx"
+DEFAULT_XLSX = ROOT_DIR / "data" / "Hackaton_Enter_Base_Candidatos.xlsx"
 DEFAULT_OUTPUT_CSV = ROOT_DIR / "data" / "synthetic_adherence.csv"
 DEFAULT_OUTPUT_JSON = ROOT_DIR / "data" / "synthetic_adherence_summary.json"
 

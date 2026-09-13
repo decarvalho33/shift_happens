@@ -1,50 +1,37 @@
-# Utilitários de dados
+# Código-fonte
 
-Esta pasta contém o gerador da camada sintética de aderência usada na demonstração. O frontend principal está em `frontend/`.
+Toda a solução fica nesta pasta. Cada parte tem o próprio README.
 
-## Arquivos
+| Pasta ou arquivo | O que é |
+| --- | --- |
+| [frontend/](frontend/README.md) | Aplicação React/Vite: mesa do advogado (recomendação, score de defesa, evidências, decisão e negociação) e visão administrativa |
+| [backend/](backend/README.md) | API do copiloto integrada à OpenAI |
+| [modelo/taxa_de_risco/](modelo/taxa_de_risco/README.md) | Regressão logística da probabilidade de perda e score de defesa |
+| [modelo/condenacao/](modelo/condenacao/README.md) | Comparação de modelos para o valor da condenação |
+| [modelo/valor_oferta/](modelo/valor_oferta/README.md) | Valor típico de acordo com bootstrap |
+| [usability-agent/](usability-agent/README.md) | Agente que testa a usabilidade do site simulando um advogado |
+| [synthetic_adherence.py](synthetic_adherence.py) | Gerador da camada sintética de aderência dos advogados |
+| [adherence_dashboard.py](adherence_dashboard.py) | Legado desativado; encerra e direciona para o frontend |
+| [tests/](tests/) | Testes do gerador sintético |
 
-| Arquivo | Estado | Finalidade |
-| --- | --- | --- |
-| [synthetic_adherence.py](synthetic_adherence.py) | Ativo | Lê o XLSX de entrada e gera registros comportamentais sintéticos e um resumo agregado |
-| [adherence_dashboard.py](adherence_dashboard.py) | Legado desativado | Preservado apenas como referência; encerra a execução e direciona para o frontend React |
+## Relação com a organização sugerida no template
 
-## Gerador sintético
+| Sugestão | Onde está |
+| --- | --- |
+| `policy/`: regras de decisão e sugestão de valor | `modelo/` e `frontend/src/lib/riskModel.ts`, que calcula o score no site |
+| `interface/`: acesso do advogado à recomendação | `frontend/` e `backend/` |
+| `utils/`: utilitários compartilhados | `synthetic_adherence.py` |
 
-Requisitos:
+## Gerador sintético de aderência
 
-- Python `>= 3.10`;
-- `Hackaton_Enter_Base_Candidatos.xlsx` na raiz, salvo se outro caminho for informado;
-- nenhuma dependência externa: o script usa apenas a biblioteca padrão.
+Requisitos: Python `>= 3.10`, sem dependências externas, e `data/Hackaton_Enter_Base_Candidatos.xlsx`, salvo se outro caminho for informado.
 
-Execute a partir da raiz:
+Na raiz do repositório:
 
 ```bash
 python src/synthetic_adherence.py
-```
-
-O processo é reproduzível pela seed e gera:
-
-- `data/synthetic_adherence.csv`, base detalhada local;
-- `data/synthetic_adherence_summary.json`, snapshot agregado demonstrativo.
-
-Exemplos:
-
-```bash
-python src/synthetic_adherence.py --help
 python src/synthetic_adherence.py --limit 500 --seed 7 --output-csv data/local/sample.csv --output-json data/local/sample.json
+python -m unittest discover -s src/tests
 ```
 
-As opções `--xlsx`, `--output-csv` e `--output-json` permitem alterar os caminhos padrão. Use o diretório ignorado `data/local/` para testes que não devem atualizar o snapshot oficial. Mais detalhes sobre a metodologia estão em [docs/behavioral_adherence_model.md](../docs/behavioral_adherence_model.md), e a política de dados está em [data/README.md](../data/README.md).
-
-## Interface recomendada
-
-Use o frontend React/Vite:
-
-```bash
-cd frontend
-npm ci
-npm run dev -- --host 127.0.0.1
-```
-
-Consulte o [guia de configuração](../SETUP.md) para o fluxo completo.
+O gerador grava `data/synthetic_adherence.csv` (local, ignorado pelo Git) e `data/synthetic_adherence_summary.json` (snapshot versionado). As opções `--xlsx`, `--output-csv` e `--output-json` alteram os caminhos padrão. A metodologia está em [docs/behavioral_adherence_model.md](../docs/behavioral_adherence_model.md).

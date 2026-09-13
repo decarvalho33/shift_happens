@@ -7,22 +7,22 @@ Servidor Node.js que implementa as rotas esperadas pelo frontend e usa a OpenAI 
 Na raiz do projeto:
 
 ```powershell
-Copy-Item backend/.env.example backend/.env
+Copy-Item src/backend/.env.example src/backend/.env
 ```
 
-Edite `backend/.env` e preencha:
+Edite `src/backend/.env` e preencha:
 
 ```dotenv
 OPENAI_API_KEY=sk-...
 OPENAI_MODEL=gpt-4.1-mini
 ```
 
-Nunca coloque a chave em `frontend/.env.local` ou em uma variável `VITE_*`.
+Nunca coloque a chave em `src/frontend/.env.local` ou em uma variável `VITE_*`.
 
 ## Execução
 
 ```powershell
-cd backend
+cd src/backend
 npm install
 npm run dev
 ```
@@ -33,7 +33,7 @@ O servidor inicia em `http://127.0.0.1:8787`. Verifique com:
 Invoke-RestMethod http://127.0.0.1:8787/health
 ```
 
-Em outro terminal, inicie `npm run dev` dentro de `frontend`. O arquivo local já aponta `VITE_COPILOT_API_URL` para `/api/copilot`, e o Vite encaminha `/api` ao backend.
+Em outro terminal, inicie `npm run dev` dentro de `src/frontend`. O arquivo local já aponta `VITE_COPILOT_API_URL` para `/api/copilot`, e o Vite encaminha `/api` ao backend.
 
 ## Rotas
 

@@ -9,14 +9,14 @@ O Playwright executa ações por texto, rótulo e papel acessível visíveis. Qu
 Com o frontend rodando em outro terminal:
 
 ```powershell
-cd frontend
+cd src/frontend
 npm run dev -- --host 127.0.0.1
 ```
 
 Em outro terminal, instale as dependências do agente:
 
 ```powershell
-cd usability-agent
+cd src/usability-agent
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 python -m pip install -r requirements.txt

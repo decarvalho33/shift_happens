@@ -28,7 +28,7 @@ from sklearn.model_selection import KFold
 
 PASTA = Path(__file__).resolve().parent
 RAIZ_MODELOS = PASTA.parent
-DADOS = RAIZ_MODELOS.parent / "Hackaton_Enter_Base_Candidatos.xlsx"
+DADOS = RAIZ_MODELOS.parents[1] / "data" / "Hackaton_Enter_Base_Candidatos.xlsx"
 SAIDA = PASTA / "resultados"
 SUBSIDIOS = {"Contrato": "contrato", "Extrato": "extrato", "Comprovante de crédito": "comprovante",
              "Dossiê": "dossie", "Demonstrativo de evolução da dívida": "demonstrativo", "Laudo referenciado": "laudo"}
